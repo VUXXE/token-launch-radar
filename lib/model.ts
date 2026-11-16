@@ -266,45 +266,45 @@ export function farmStepsFor(p: SnapshotProtocol, ageDaysVal: number): string[] 
   const tvlStr = fmtMoney(p.tvl_usd);
   const steps: string[] = [];
 
-  steps.push(`Research ${name} on ${chains}: review docs, audits, and contract addresses; confirm it is still pre-token with ${tvlStr} TVL before depositing. Cost: free, ~30-45 minutes.`);
+  steps.push(`Research ${name} on ${chains}: review docs, audits, and contract addresses; confirm it is still pre-token with ${tvlStr} TVL before depositing. Cost: free. Time: ~30-45 minutes.`);
 
   if (/lend|borrow|cdp|credit/.test(cat)) {
-    steps.push(`Supply ${size} of a supported stablecoin or blue-chip asset into ${name} on ${chain} to register onchain lending activity. Cost: deposit amount + ${gas}, ~10 minutes.`);
-    if (bucket !== 'small') steps.push(`Optionally borrow a small amount (<=30% LTV) against your ${name} collateral and repay after a few days to add borrow-side history. Cost: interest + ${gas} per tx, ~15 minutes.`);
-    steps.push(`Keep funds supplied in ${name} for ${hold}, maintaining utilization and avoiding liquidation; refresh position weekly. Cost: opportunity cost on ${size}, ~10 minutes/week.`);
+    steps.push(`Supply ${size} of a supported stablecoin or blue-chip asset into ${name} on ${chain} to register onchain lending activity. Cost: deposit amount + ${gas}. Time: ~10 minutes.`);
+    if (bucket !== 'small') steps.push(`Optionally borrow a small amount (<=30% LTV) against your ${name} collateral and repay after a few days to add borrow-side history. Cost: interest + ${gas} per tx. Time: ~15 minutes.`);
+    steps.push(`Keep funds supplied in ${name} for ${hold}, maintaining utilization and avoiding liquidation; refresh position weekly. Cost: opportunity cost on ${size}. Time: ${hold} hold, ~10 minutes/week.`);
   } else if (/dex|exchange|amm|perp|deriv|trading/.test(cat)) {
-    steps.push(`Bridge ${size} to ${chain} and execute 4-8 swaps on ${name} across different weeks to build consistent trading volume. Cost: ${gas} plus ~0.05-0.3% swap fees per trade, ~20 minutes total.`);
+    steps.push(`Bridge ${size} to ${chain} and execute 4-8 swaps on ${name} across different weeks to build consistent trading volume. Cost: ${gas} plus ~0.05-0.3% swap fees per trade. Time: ~20 minutes total setup.`);
     if (/perp|deriv/.test(cat)) {
-      steps.push(`Open and close small leveraged positions on ${name} with low size (1-2% of equity) to show derivatives usage without excess risk. Cost: funding/fees + ${gas}, ~15 minutes/session.`);
+      steps.push(`Open and close small leveraged positions on ${name} with low size (1-2% of equity) to show derivatives usage without excess risk. Cost: funding/fees + ${gas}. Time: ~15 minutes per session.`);
     } else {
-      steps.push(`Provide ${size} as liquidity in a main pool on ${name} and hold for ${hold} to accumulate LP time and fee history. Cost: deposit + ${gas}, impermanent loss risk, ~15 minutes.`);
+      steps.push(`Provide ${size} as liquidity in a main pool on ${name} and hold for ${hold} to accumulate LP time and fee history. Cost: deposit + ${gas}, impermanent loss risk. Time: ${hold} hold, ~15 minutes setup.`);
     }
-    steps.push(`Repeat modest volume on ${name} weekly for ${hold} rather than one burst; log tx hashes to evidence organic activity. Cost: ${gas} weekly, ~10 minutes/week.`);
+    steps.push(`Repeat modest volume on ${name} weekly for ${hold} rather than one burst; log tx hashes to evidence organic activity. Cost: ${gas} weekly. Time: ~10 minutes/week for ${hold}.`);
   } else if (/bridge|cross/.test(cat)) {
-    steps.push(`Bridge ${size} through ${name} to ${chain} (and back once) using official routes to create verifiable bridge transactions. Cost: bridge fee ~0.05-0.2% + ${gas}, ~15-30 minutes.`);
-    steps.push(`Use the bridged assets in a simple onchain action (swap or deposit) after crossing via ${name} to show destination usage. Cost: ${gas}, ~10 minutes.`);
-    steps.push(`Perform 2-4 spaced transfers via ${name} over ${hold} to demonstrate recurring usage. Cost: fees as above per transfer, ~15 minutes each.`);
+    steps.push(`Bridge ${size} through ${name} to ${chain} (and back once) using official routes to create verifiable bridge transactions. Cost: bridge fee ~0.05-0.2% + ${gas}. Time: ~15-30 minutes.`);
+    steps.push(`Use the bridged assets in a simple onchain action (swap or deposit) after crossing via ${name} to show destination usage. Cost: ${gas}. Time: ~10 minutes.`);
+    steps.push(`Perform 2-4 spaced transfers via ${name} over ${hold} to demonstrate recurring usage. Cost: fees as above per transfer. Time: ~15 minutes each over ${hold}.`);
   } else if (/staking|restak|liquid/.test(cat)) {
-    steps.push(`Stake or restake ${size} of the supported asset through ${name} on ${chain} to receive its liquid receipt token. Cost: stake amount + ${gas}, ~10 minutes.`);
-    steps.push(`Hold the ${name} receipt token for ${hold}; optionally use it in a whitelisted DeFi venue if documented by ${name}. Cost: smart-contract risk, ${gas} if moved, ~10 minutes.`);
-    steps.push(`Claim or compound any native rewards on ${name} monthly and restake to keep the position active. Cost: ${gas} per claim, ~10 minutes.`);
+    steps.push(`Stake or restake ${size} of the supported asset through ${name} on ${chain} to receive its liquid receipt token. Cost: stake amount + ${gas}. Time: ~10 minutes.`);
+    steps.push(`Hold the ${name} receipt token for ${hold}; optionally use it in a whitelisted DeFi venue if documented by ${name}. Cost: smart-contract risk, ${gas} if moved. Time: ${hold} hold, ~10 minutes to manage.`);
+    steps.push(`Claim or compound any native rewards on ${name} monthly and restake to keep the position active. Cost: ${gas} per claim. Time: ~10 minutes monthly.`);
   } else if (/yield|farm|aggregator|vault/.test(cat)) {
-    steps.push(`Deposit ${size} into a primary vault or strategy on ${name} on ${chain} and note the share token received. Cost: deposit + ${gas}, ~10 minutes.`);
-    steps.push(`Leave the deposit in ${name} for ${hold} to accrue strategy runtime; avoid frequent churn that may not count. Cost: strategy/contract risk, ~5 minutes/week to monitor.`);
-    steps.push(`Harvest or rebalance through ${name} if the UI offers it, then withdraw a small test amount to confirm exits work. Cost: ${gas}, ~10 minutes.`);
+    steps.push(`Deposit ${size} into a primary vault or strategy on ${name} on ${chain} and note the share token received. Cost: deposit + ${gas}. Time: ~10 minutes.`);
+    steps.push(`Leave the deposit in ${name} for ${hold} to accrue strategy runtime; avoid frequent churn that may not count. Cost: strategy/contract risk. Time: ${hold} hold, ~5 minutes/week to monitor.`);
+    steps.push(`Harvest or rebalance through ${name} if the UI offers it, then withdraw a small test amount to confirm exits work. Cost: ${gas}. Time: ~10 minutes.`);
   } else if (/rwa|real world/.test(cat)) {
-    steps.push(`Complete any KYC or eligibility steps required by ${name}, then allocate ${size} to its RWA product on ${chain} if permitted in your jurisdiction. Cost: deposit + ${gas} (and possible onboarding time), ~30-60 minutes.`);
-    steps.push(`Hold the ${name} position for ${hold} and track yield distributions or statements in-app. Cost: opportunity and compliance risk, ~10 minutes/week.`);
+    steps.push(`Complete any KYC or eligibility steps required by ${name}, then allocate ${size} to its RWA product on ${chain} if permitted in your jurisdiction. Cost: deposit + ${gas} (plus onboarding). Time: ~30-60 minutes.`);
+    steps.push(`Hold the ${name} position for ${hold} and track yield distributions or statements in-app. Cost: opportunity and compliance risk. Time: ${hold} hold, ~10 minutes/week.`);
   } else if (/risk|curator|allocator/.test(cat)) {
-    steps.push(`Deposit ${size} into a curated vault managed via ${name} on ${chain}, choosing a conservative risk profile. Cost: deposit + ${gas}, ~10 minutes.`);
-    steps.push(`Maintain the allocation in ${name} for ${hold} and review curator updates or rebalances. Cost: manager/contract risk, ~10 minutes/week.`);
+    steps.push(`Deposit ${size} into a curated vault managed via ${name} on ${chain}, choosing a conservative risk profile. Cost: deposit + ${gas}. Time: ~10 minutes.`);
+    steps.push(`Maintain the allocation in ${name} for ${hold} and review curator updates or rebalances. Cost: manager/contract risk. Time: ${hold} hold, ~10 minutes/week.`);
   } else {
-    steps.push(`Deposit or interact with ${size} in the core product of ${name} on ${chain} following official docs to create a baseline position. Cost: amount + ${gas}, ~15 minutes.`);
-    steps.push(`Perform 2-3 additional meaningful actions on ${name} (e.g. stake, vote, or secondary feature use) spread over ${hold}. Cost: ${gas} per action, ~20 minutes total.`);
-    steps.push(`Maintain at least one active position in ${name} for ${hold} and monitor announcements for points or eligibility criteria. Cost: opportunity cost, ~10 minutes/week.`);
+    steps.push(`Deposit or interact with ${size} in the core product of ${name} on ${chain} following official docs to create a baseline position. Cost: amount + ${gas}. Time: ~15 minutes.`);
+    steps.push(`Perform 2-3 additional meaningful actions on ${name} (e.g. stake, vote, or secondary feature use) spread over ${hold}. Cost: ${gas} per action. Time: ~20 minutes total over ${hold}.`);
+    steps.push(`Maintain at least one active position in ${name} for ${hold} and monitor announcements for points or eligibility criteria. Cost: opportunity cost. Time: ${hold} hold, ~10 minutes/week.`);
   }
 
-  steps.push(`Track all ${name} activity (addresses, dates, amounts, tx hashes) in a spreadsheet so you can evidence usage if a token launches. Cost: free, ~10 minutes setup.`);
+  steps.push(`Track all ${name} activity (addresses, dates, amounts, tx hashes) in a spreadsheet so you can evidence usage if a token launches. Cost: free. Time: ~10 minutes setup.`);
 
   // ensure protocol name appears in at least one step (it does many times, but guarantee)
   if (!steps.some((s) => s.includes(name))) {
