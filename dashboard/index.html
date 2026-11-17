@@ -4,23 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Token Launch Radar</title>
+  <meta name="description" content="Pre-token protocols ranked by implied launch value, with peers and farm plans.">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark" aria-hidden="true"></div>
+      <span class="brand-mark" aria-hidden="true"></span>
       <div>
         <h1>Token Launch Radar</h1>
-        <p class="subtitle">Implied launch value from sealed snapshot data</p>
+        <p class="subtitle">Pre-token protocols, ranked by what a launch could be worth</p>
       </div>
     </div>
     <div class="meta" id="meta"></div>
   </header>
-  <main id="app">
-    <section id="view-board" class="view"></section>
-    <section id="view-detail" class="view hidden"></section>
+  <main id="main">
+    <section id="view-board" class="view" aria-label="Ranked board"></section>
+    <section id="view-detail" class="view hidden" aria-label="Protocol detail"></section>
   </main>
+  <footer class="foot">A comparative signal from a sealed snapshot, not a price or a launch promise.</footer>
   <script src="../data.js"></script>
   <script src="app.js"></script>
 </body>
