@@ -71,6 +71,8 @@ writeFileSync(join(out, 'dossier.json'), buildDossier(out, {
 }));
 
 process.stdout.write(
+  `token-radar: screen: ${radar.screen.pre_token_total} pre-token, ${radar.screen.excluded_as_product} excluded as products, ` +
+  `${radar.screen.candidates} launch candidates, ${radar.screen.watchlist_size} on watchlist, ${radar.screen.below_floor} below floor\n` +
   `token-radar: ${snapshot.protocols.length} protocols, ${snapshot.watchlist.length} watchlist, ${board.length} ranked pre-token, ${radar.live.length} live comparables\n` +
   `token-radar: wrote board.json, data.js, dashboard (${dash.length} files), screenshots (${shots.length}), dossier.json -> ${out}\n`,
 );
